@@ -190,8 +190,19 @@ func (ctxt *context) collectPackageCandidates(pkg *packages.Package) {
 func (ctxt *context) collectPathCandidates(path string) error {
 	ctxt.fset = token.NewFileSet()
 
+	mode := packages.NeedName |
+		packages.NeedFiles |
+		packages.NeedCompiledGoFiles |
+		packages.NeedImports |
+		packages.NeedDeps |
+		packages.NeedExportsFile |
+		packages.NeedTypes |
+		packages.NeedSyntax |
+		packages.NeedTypesInfo |
+		packages.NeedTypesSizes |
+		packages.NeedModule
 	conf := &packages.Config{
-		Mode:  packages.LoadSyntax,
+		Mode:  mode,
 		Fset:  ctxt.fset,
 		Tests: true,
 	}
